@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class = "form-group">
+                <div class="form-group">
+                    {% if form.searchInput.errors %}
+                        {{ form.searchInput(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.searchInput.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.searchInput(class="form-control", placeholder="Search" ) }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}
