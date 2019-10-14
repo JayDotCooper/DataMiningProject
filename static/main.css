@@ -24,6 +24,15 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
+.search-table-outter {border:2px solid red;}
+.search-table{table-layout: fixed; margin:40px auto 0px auto; }
+.search-table, td, th{border-collapse:collapse; border:1px solid #777;}
+th{padding:20px 7px; font-size:15px; color:#444; background:#66C2E0;}
+td{padding:5px 10px; height:35px;}
+
+.search-table-outter { overflow-x: scroll; }
+th, td { min-width: 200px; }
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;

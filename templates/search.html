@@ -23,15 +23,21 @@
             </div>
         </form>
         <hr>
-        <div class="container">
+    </div>
+    <div class="table-responsive">
             {% if topFive %}
-                <table>
+                <table class="table" style="overflow-x: scroll;">
                     <tr>
                         <th > Name</th>
-                        <th colspan="2"> Title</th>
-                        <th colspan="3"> Role</th>
+                        <th > Title</th>
+                        <th > Role</th>
                         <th > Region</th>
                         <th > Bio</th>
+                        {% for term in topFive[0]["WordData"] %}
+                            <th>{{term.Term}} - TF</th>
+                            <th>{{term.Term }} - Frequency</th>
+                            <th>{{term.Term}} - IDF</th>
+                        {% endfor %}
                         <th > TF-IDF</th>
                     </tr>
 
@@ -39,12 +45,14 @@
                         <tr>
                             <td >{{ result.Name }}</td>
                             <td>{{ result.Title }}</td>
-                            <td></td>
                             <td>{{ result.Role }}</td>
-                            <td></td>
-                            <td></td>
                             <td>{{ result.Region }}</td>
                             <td class="small">{{ result.Bio }}</td>
+                            {% for data in result.WordData %}
+                                <td> {{ data.Tf }} </td>
+                                <td> {{ data.Frequency }} </td>
+                                <td> {{ data.Idf }} </td>
+                            {% endfor %}
                             <td>{{ result.Score }}</td>
                         </tr>
                     {% endfor %}
@@ -56,5 +64,4 @@
 
             {% endif %}
         </div>
-    </div>
 {% endblock content %}

@@ -7,8 +7,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'u7PrtQm5Dur0cgkcyOlOmU7kYm9xy4ng'
 champions = {}
 bucket = []
-tfMatrix = {}
-topFiveTf = {}
 
 # Creating the JSON
 with open('ChampionDataset.json') as json_file:
@@ -16,6 +14,7 @@ with open('ChampionDataset.json') as json_file:
 
 # Creating a bucket of words
 for champion in champions:
+    # text = champion["Name"] + " " + champion["Title"] + " " + champion["Title"] + " " + champion["Title"] + " " + champion["Title"] + " " + champion["Title"]
     bucket.append(champion["Name"])
     bucket[len(bucket) - 1] = bucket[len(bucket) - 1] + " " + champion["Title"]
     bucket[len(bucket) - 1] = bucket[len(bucket) - 1] + " " + champion["Role"]
@@ -47,58 +46,51 @@ def search():
 
 
 def create_tf_matrix(searchInputs):
-    count = 0
     bucketLength = len(bucket)
-    returnJson = []
-    topFive = []
+    championsSorted = champions[:]  # Copy without reference
+    topFive = []                    # Used as the return variable
 
-    # Creating rank matrix
-    for term in searchInputs:
-        temp = []
-        docTermCount = getTermCount(term)
+    for championIndex in range(len(championsSorted)):
+        wordDataArray = []          # Number of documents the term appears in
+        score = 0                   # Total score per document
 
-        for doc in bucket:
-            tf = doc.count(term.upper()) / len(doc)
+        for termIndex in range(len(searchInputs)):
 
-            if docTermCount == 0:
+            # Calculates the number of documents that contain the term
+            docTermFrequency = getTermCount(searchInputs[termIndex])
+
+            #Calculate TF for term
+            tf = bucket[championIndex].count(searchInputs[termIndex].upper()) / len(bucket[championIndex])
+
+            # Calculate IDF for term
+            if docTermFrequency == 0:
                 idf = 0
             else:
-                idf = numpy.log(bucketLength / docTermCount)
+                idf = numpy.log(bucketLength / docTermFrequency)
 
-            tfidf = tf * idf
+            # Calculate TF-IDF total
+            score = score + (tf * idf)
 
-            tempJSON = {
-                "TF": tf,
-                "IDF": idf,
-                "TFIDF": tfidf
+            # Creating word data for array
+            wordData = {
+                "Term": searchInputs[termIndex],
+                "Frequency": docTermFrequency,
+                "Tf": tf,
+                "Idf": idf,
+                "Index": championIndex
             }
+            wordDataArray.append(wordData)
 
-            temp.append(tempJSON)
-            count += 1
-        returnJson.append(temp)
+        championsSorted[championIndex]["WordData"] = wordDataArray
+        championsSorted[championIndex]["Score"] = score
 
-        # Mapping and sorting ranked matrix
-        indexScoreArray = []
-        for i in range(bucketLength):
-            score = 0
-            for j in range(len(returnJson)):
-                score += returnJson[j][i]["TFIDF"]
-
-            test = {
-                "INDEX": i,
-                "SCORE": score
-            }
-
-            indexScoreArray.append(test)
-
-        indexScoreArray.sort(key=lambda x: x['SCORE'], reverse=True)
+    # Sorting the list so the highest scores are first
+    championsSorted.sort(key=lambda x: x['Score'], reverse=True)
 
     # Grabbing top 5 results
     for i in range(0, 5):
-        topFive.append(champions[indexScoreArray[i]["INDEX"]])
-        topFive[i]["Score"] = indexScoreArray[i]["SCORE"]
+        topFive.append(championsSorted[i])
 
-    print(topFive)
     return topFive
 
 
