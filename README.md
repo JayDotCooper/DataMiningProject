@@ -8,5 +8,5 @@ Search and hit enter<br/>
 <hr>
 
 <h3> References </h3>
-http://tfidf.com/
+http://tfidf.com/ </br>
 https://universe.leagueoflegends.com/en_US/champion For dataset
