@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="content-section container-fluid">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <div class="form-group">
+                    {% if form.classifierInput.errors %}
+                        {{ form.classifierInput(class="form-control is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.classifierInput.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.classifierInput(class="form-control", placeholder="Description" ) }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+        <hr>
+    </div>
+    <div>
+        {% if roleProbability %}
+        <div class="row">
+            <div class="col-2"> ASSASSIN:  </div>
+            <div class="col-2">{{ roleProbability.Assassin }}</div>
+        </div>
+        <div class="row">
+            <div class="col-2"> FIGHTER:  </div>
+            <div class="col-2">{{ roleProbability.Fighter }}</div>
+        </div>
+        <div class="row">
+            <div class="col-2"> MAGE:  </div>
+            <div class="col-2">{{ roleProbability.Mage }}</div>
+        </div>
+        <div class="row">
+            <div class="col-2"> MARKSMAN:  </div>
+            <div class="col-2">{{ roleProbability.Marksman }}</div>
+        </div>
+        <div class="row">
+            <div class="col-2"> SUPPORT:  </div>
+            <div class="col-2">{{ roleProbability.Support }}</div>
+        </div>
+        <div class="row">
+            <div class="col-2"> TANK:  </div>
+            <div class="col-2">{{ roleProbability.Tank }}</div>
+        </div>
+    {% endif %}
+    </div>
+{% endblock content %}
