@@ -304,19 +304,31 @@ def classify(classifierInputs):
 
     # Normalizing probabilities to add up to 100%
     probTotal = probAssassin + probFighter + probMage + probMarksman + probSupport + probTank
-    probAssassin = (probAssassin / probTotal) * 100
-    probFighter = (probFighter / probTotal) * 100
-    probMage = (probMage / probTotal) * 100
-    probMarksman = (probMarksman / probTotal) * 100
-    probSupport = (probSupport / probTotal) * 100
-    probTank = (probTank / probTotal) * 100
+    normAssassin = (probAssassin / probTotal) * 100
+    normFighter = (probFighter / probTotal) * 100
+    normMage = (probMage / probTotal) * 100
+    normMarksman = (probMarksman / probTotal) * 100
+    normSupport = (probSupport / probTotal) * 100
+    normTank = (probTank / probTotal) * 100
 
-    return {"Assassin": probAssassin,
-            "Fighter": probFighter,
-            "Mage": probMage,
-            "Marksman": probMarksman,
-            "Support": probSupport,
-            "Tank": probTank}
+    return {"Assassin": normAssassin,
+            "ProbAssassin": probAssassin,
+            "ProbNotAssassin": probNotAssassin, 
+            "Fighter": normFighter,
+            "ProbFighter": probFighter,
+            "ProbNotFighter": probNotFighter, 
+            "Mage": normMage,
+            "ProbMage": probMage,
+            "ProbNotMage": probNotMage,
+            "Marksman": normMarksman,
+            "ProbMarksman": probMarksman,
+            "ProbNotMarksman": probNotMarksman, 
+            "Support": normSupport,
+            "ProbSupport": probSupport,
+            "ProbNotSupport": probNotSupport, 
+            "Tank": normTank,
+            "ProbTank": probTank,
+            "ProbNotTank": probNotTank }
 
 
 def create_tf_matrix(searchInputs):

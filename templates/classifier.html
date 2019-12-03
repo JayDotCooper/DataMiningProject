@@ -28,26 +28,38 @@
         {% if roleProbability %}
         <div class="row">
             <div class="col-2"> ASSASSIN:  </div>
+            <div class="col-2"> P(Assassin) / Probability(!A) * 100 </div>
+            <div class="col-md-3"> {{roleProbability.ProbAssassin}} / {{ roleProbability.ProbNotAssassin }} * 100 </div>
             <div class="col-2">{{ roleProbability.Assassin }}</div>
         </div>
         <div class="row">
             <div class="col-2"> FIGHTER:  </div>
+            <div class="col-2"> P(Fighter) / P(!Fighter) * 100 </div>
+            <div class="col-md-3"> {{ roleProbability.ProbFighter }} / {{ roleProbability.ProbNotFighter }} * 100 </div>
             <div class="col-2">{{ roleProbability.Fighter }}</div>
         </div>
         <div class="row">
             <div class="col-2"> MAGE:  </div>
+            <div class="col-2"> P(Mage) / P(!Mage) * 100 </div>
+            <div class="col-md-3"> {{roleProbability.ProbMage}} / {{roleProbability.ProbNotMage}} * 100 </div>
             <div class="col-2">{{ roleProbability.Mage }}</div>
         </div>
         <div class="row">
             <div class="col-2"> MARKSMAN:  </div>
+            <div class="col-2"> P(Marksman) / P(!Marksman) * 100 </div>
+            <div class="col-md-3"> {{roleProbability.ProbMarksman}} / {{roleProbability.ProbNotMarksman}} * 100 </div>
             <div class="col-2">{{ roleProbability.Marksman }}</div>
         </div>
         <div class="row">
             <div class="col-2"> SUPPORT:  </div>
+            <div class="col-2"> P(Support) / P(!Support) * 100 </div>
+            <div class="col-md-3"> {{roleProbability.ProbSupport}} / {{roleProbability.ProbNotSupport}} * 100 </div>
             <div class="col-2">{{ roleProbability.Support }}</div>
         </div>
         <div class="row">
             <div class="col-2"> TANK:  </div>
+            <div class="col-2"> P(Tank) / P(!Tank) * 100 </div>
+            <div class="col-md-3"> {{roleProbability.ProbTank}} / {{roleProbability.ProbNotTank}} * 100 </div>
             <div class="col-2">{{ roleProbability.Tank }}</div>
         </div>
     {% endif %}
